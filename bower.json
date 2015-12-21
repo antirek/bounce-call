@@ -1,0 +1,21 @@
+{
+  "name": "call-start-end",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Sergey Dmitriev <serge.dmitriev@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/antirek/call-start-end",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "flying-points": "*"
+  }
+}
