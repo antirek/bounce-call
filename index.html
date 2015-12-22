@@ -1,61 +1,72 @@
 <!DOCTYPE html>
 <html>
-<head>
-    
+<head>    
     <meta charset="utf-8">
-    <title>Flying points demo</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #F0F0F0;
-        }
+    <title>Asterisk Calls</title>
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/konva/konva.min.js"></script>
+    <script src="/bower_components/flying-points/flying-points.js"></script>
+    <style type="text/css">
+      .container {
+        width: 972px;
+      }
     </style>
 </head>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="https://cdn.rawgit.com/konvajs/konva/0.10.0/konva.min.js"></script>
-<script src="/bower_components/flying-points/flying-points.js"></script>
-
-<div id="container"></div>
-
-<script>
-    var width = window.innerWidth;
-    var height = window.innerHeight;
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Asterisk Calls</h2>
+        </div>
+        <div class="col-md-4"><br/>Total: <span id="counter">0</span></div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div id="container" style="width:100%;height:300px;background:#EFEFEF;"></div>          
+        </div>
+      </div>
+    </div>
     
-    var field = new Field('container', width, height);
+    <script>
+      var width = $("#container").width(); 
+      var height = $("#container").height();
+        
+      var field = new Field('container', width, height);
 
-</script>
-<script>
-  var socket = io();
-  var count = 0;
-  function getRandomInt (min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+      var socket = io();
+      var count = 0;
 
-  var colors = ['red', 'green', 'yellow', 'purple', 'blue'];
+      function getRandomInt (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
 
-  var calls = {};
-  socket.on('data', function (data) {
-  	console.log('count', count);
-  	if (data.subevent == 'Begin') {
-  		
-  		var point = new Point(getRandomInt(10,30), getRandomInt(10,30), getRandomInt(-10,10), getRandomInt(-10,10), colors[getRandomInt(0,4)]);
+      var colors = ['red', 'green', 'yellow', 'purple', 'blue'];
 
+      var calls = {};
+      socket.on('data', function (data) {
+        if (data.subevent == 'Begin') {
+            if (calls[data.uniqueid] == null) {
+                var point = new Point(getRandomInt(30,30), getRandomInt(30,30), getRandomInt(-5,5), getRandomInt(-5,5), colors[getRandomInt(0,4)]);
+                calls[data.uniqueid] = field.add(point);
+                console.log('add');
+                count++;
+            }
+        } else if (data.subevent == 'End') {
+            if (calls[data.uniqueid]) {
+                field.remove(calls[data.uniqueid]);
+                delete calls[data.uniqueid];
+                console.log('remove');
+                count--;
+            }
+        };
 
-  		if (calls[data.uniqueid] == null) {
-  			calls[data.uniqueid] = field.add(point);
-  			console.log('add');
-  			count++;
-  		}
-  	} else if (data.subevent == 'End') {
-  		if (calls[data.uniqueid]) {
-  			field.remove(calls[data.uniqueid]);
-  			delete calls[data.uniqueid];
-  			console.log('remove');
-  			count--;
-  		}
-  	};
-  })
-</script>
+        $("#counter").html(count);
+
+      });
+    </script>
+</body>
+</html>
+

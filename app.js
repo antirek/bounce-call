@@ -1,10 +1,16 @@
 var AsteriskManager = require('asterisk-manager');
 
 var Q = require('q');
+var config = require('./config');
 
-var ami = new AsteriskManager('5038','localhost','admin','admin', true);  
- 
-// In case of any connectiviy problems we got you coverd. 
+var express = require('express');
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+
+//asterisk 
+var ami = new AsteriskManager(config.asterisk.port, config.asterisk.host, config.asterisk.username, config.asterisk.password, true);
 ami.keepConnected();
 
 var sockets = [];
@@ -16,14 +22,7 @@ ami.on('dial', function (evt) {
 	});
 });
 
-
-var express = require('express');
-var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-var config = require('./config');
-
+//node
 app.use('/bower_components', express["static"](__dirname + "/bower_components"));
 
 app.get('/', function(req, res){

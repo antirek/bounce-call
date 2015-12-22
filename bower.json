@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "flying-points": "*"
+    "flying-points": "*",
+    "bootstrap": "~3.3.6"
   }
 }
