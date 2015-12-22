@@ -1,12 +1,12 @@
 {
-  "name": "call-start-end",
+  "name": "bounce-call",
   "description": "",
   "main": "app.js",
   "authors": [
     "Sergey Dmitriev <serge.dmitriev@gmail.com>"
   ],
-  "license": "ISC",
-  "homepage": "https://github.com/antirek/call-start-end",
+  "license": "MIT",
+  "homepage": "https://github.com/antirek/bounce-call",
   "moduleType": [],
   "ignore": [
     "**/.*",
