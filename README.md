@@ -1,15 +1,15 @@
-# call-start-end
+# bounce-call
 
 ## Screenshot
 
-![Demo](https://raw.githubusercontent.com/antirek/call-start-end/master/images/demo.png)
+![Demo](https://raw.githubusercontent.com/antirek/bounce-call/master/images/demo.png)
 
 
 ## Install
 
-> git clone 
+> git clone https://github.com/antirek/bounce-call.git
 
-> cd 
+> cd bounce-call
 
 > npm install
 
@@ -22,7 +22,7 @@
 
 `````javascript
 {
-    port: 3100,    //порт сервера
+    port: 3100,    //порт веб-сервера
     asterisk: {
         host: 'localhost',
         port: 5038,

@@ -1,5 +1,5 @@
 {
-  "name": "call-start-end",
+  "name": "bounce-call",
   "version": "0.0.1",
   "description": "",
   "main": "app.js",
@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/antirek/call-start-end.git"
+    "url": "https://github.com/antirek/bounce-call.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/antirek/call-start-end/issues"
+    "url": "https://github.com/antirek/bounce-call/issues"
   },
-  "homepage": "https://github.com/antirek/call-start-end"
+  "homepage": "https://github.com/antirek/bounce-call"
 }
