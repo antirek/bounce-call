@@ -21,7 +21,12 @@
         <div class="col-md-8">
           <h2>Asterisk Calls</h2>
         </div>
-        <div class="col-md-4"><br/>Total: <span id="counter">0</span></div>
+        <div class="col-md-4">
+          Total: <span id="counterTotal">0</span>
+          <br/>In: <span id="counterIn">0</span>
+          <br/>Out: <span id="counterOut">0</span>
+
+        </div>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -37,7 +42,9 @@
       var field = new Field('container', width, height);
 
       var socket = io();
-      var count = 0;
+      var counterTotal = 0;
+      var counterIn = 0;
+      var counterOut = 0;
 
       function getRandomInt (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -52,18 +59,22 @@
                 var point = new Point(getRandomInt(30,30), getRandomInt(30,30), getRandomInt(-5,5), getRandomInt(-5,5), colors[getRandomInt(0,4)]);
                 calls[data.uniqueid] = field.add(point);
                 console.log('add');
-                count++;
+                counterTotal++;
+                counterIn++;
             }
         } else if (data.subevent == 'End') {
             if (calls[data.uniqueid]) {
                 field.remove(calls[data.uniqueid]);
                 delete calls[data.uniqueid];
                 console.log('remove');
-                count--;
+                counterTotal--;
+                counterOut++;
             }
         };
 
-        $("#counter").html(count);
+        $("#counterTotal").html(counterTotal);
+        $("#counterIn").html(counterIn);
+        $("#counterOut").html(counterOut);
 
       });
     </script>
